@@ -22,7 +22,7 @@ import Control.Monad.IO.Class
 
 main = do
     conn <- checkedConnect $ defaultConnectInfo { connectHost = "redis" }
-    httpServe snapCfg (requestHandler conn)
+    httpServe snapCfg $ route [("/", ifTop $ requestHandler conn)]
 
 --storeTimestamp :: ByteString -> Redis (Either Reply Integer)
 storeTimestamp ts = do
